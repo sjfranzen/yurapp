@@ -1,0 +1,1 @@
+module.exports = [{"isId":true,"priority":100100.0065,"key":"winMap","style":{backgroundColor:Alloy.Globals.ThemeStyles.win.backgroundColor,}},{"isId":true,"priority":100100.0066,"key":"mapView","style":{top:"48dp",animate:true,regionFit:true,userLocation:true,mapType:Ti.Map.STANDARD_TYPE,}}];

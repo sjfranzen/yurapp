@@ -1,0 +1,9 @@
+#appname:yurapp
+#appid:com.yurapp.barebone
+#type:mobile
+#guid:e4378db0-210b-4302-9dd5-16a5907f1b84
+#version:1.0
+#publisher:Steve Franzen
+#url:http://about.me
+#image:appicon.png
+#desc:Basic Navigation Framework for YurApp

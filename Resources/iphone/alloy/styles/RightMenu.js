@@ -1,0 +1,1 @@
+module.exports = [{"isId":true,"priority":100100.0072,"key":"outerContainer","style":{width:Ti.UI.SIZE,top:-320,right:0,zIndex:14,key:"Ali Hasnain",}},{"isId":true,"priority":100100.0073,"key":"rightMenuTable","style":{backgroundColor:"transparent",top:0,width:175,right:0,zIndex:16,separatorStyle:"none",}}];

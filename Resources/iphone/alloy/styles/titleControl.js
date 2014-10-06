@@ -1,0 +1,1 @@
+module.exports = [{"isId":true,"priority":100100.0098,"key":"titleView","style":{backgroundColor:"transparent",width:Ti.UI.SIZE,}},{"isId":true,"priority":100100.0099,"key":"lblTitle","style":{color:"#fff",font:{fontSize:18,fontFamily:"Montserrat",fontWeight:"Bold",},}}];

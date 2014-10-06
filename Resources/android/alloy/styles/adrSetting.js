@@ -1,0 +1,1 @@
+module.exports = [{"isId":true,"priority":100100.0104,"key":"winSetting","style":{backgroundColor:Alloy.Globals.ThemeStyles.win.backgroundColor,}}];
