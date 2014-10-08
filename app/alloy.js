@@ -74,7 +74,7 @@ Alloy.Globals.ThemeStyles = {
 	// Windows / Views
 	//
 	win : {
-		backgroundColor : '#232323',\
+		backgroundColor : '#232323',
 	 	barColor : (Alloy.Globals.isIOS7() == "7") ? '#464646' : '#232323',
 		//barColor : '#232323',
 		separatorColor : '#343434',
