@@ -1,3 +1,5 @@
+var currentUser = Alloy.Models.instance("user");
+
 if (Ti.Platform.Android) {
 
 var test = Alloy.createController("android/index").getView();
@@ -111,7 +113,8 @@ Alloy.Globals.navGroup.window = newWindow;
 
 Ti.App.Properties.setString("user_key", "1232456789");
 
-//Ti.App.Properties.removeProperty("user_key");
+//remove the session key to force the login process
+Ti.App.Properties.removeProperty("user_key");
 
 
 if(Ti.App.Properties.getString("user_key",null) != null){
@@ -178,6 +181,23 @@ $.winParent.open();
 
 Ti.API.info ('We need to login the user');
 
+Ti.API.info('We need to login the user');
+
+		currentUser.checkUserAuthentication().then(function(success) {
+			alert("My session is still good, so I don't have to login.");
+			alert(currentUser.id);
+		}, function(error) {
+			alert((error && error.message) || "uh oh");
+			alert("I need to login.");
+			currentUser.login({
+				login : "jayparker_1893",
+				password : "password"
+			}).then(function success(response) {
+				alert("The user logged in!");
+			}, function error(response) {
+				alert("error ");
+			});
+		});
 
 //We need to load the login page.   Once the user logs into the application.  set the user_key property and show the main page
 
