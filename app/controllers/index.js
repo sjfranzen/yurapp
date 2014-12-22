@@ -2,211 +2,172 @@ var currentUser = Alloy.Models.instance("user");
 
 if (Ti.Platform.Android) {
 
-var test = Alloy.createController("android/index").getView();
+	var test = Alloy.createController("android/index").getView();
 
-//test.open();
-
-} else {
-
-/*
-
-* Menu rows will be created here
-
-*/
-
-var rows = [];
-
-_.each(Alloy.Globals.FlyoutMenu, function(item) {
-
-rows.push(Alloy.createController('flyoutRow', {
-
-image : item.icon,
-
-title : item.title,
-
-name : item.name,
-
-controller : item.controller
-
-}).getView());
-
-});
-
-
-
-if (Alloy.Globals.isIOS7() == "7") {
-
-$.flyoutTable.top = 18;
+	//test.open();
 
 } else {
 
-$.flyoutTable.top = 0;
+	/*
 
-}
+	 * Menu rows will be created here
 
-$.flyoutTable.setData(rows);
+	 */
 
-/*
+	var rows = [];
 
-* Flyout Menu click handling
+	_.each(Alloy.Globals.FlyoutMenu, function(item) {
 
-*/
+		rows.push(Alloy.createController('flyoutRow', {
 
-$.flyoutTable.addEventListener('click', function(e) {
+			image : item.icon,
 
-Alloy.Globals.isMenuVisible = false;
+			title : item.title,
 
-Alloy.Globals.navGroup.animate(Alloy.Globals.animations.right);
+			name : item.name,
 
-if (e.row.name == '_main_menu') {
+			controller : item.controller
 
-alert('main menu clicked');
+		}).getView());
 
-} else if (e.row.name == '_options') {
+	});
 
-alert('option menu clicked');
+	if (Alloy.Globals.isIOS7() == "7") {
 
-} else if (e.row.name == currentWindow) {
+		$.flyoutTable.top = 18;
 
-// DO NOTHING MENU WILL HIDE ITSELF.
+	} else {
 
-} else {
+		$.flyoutTable.top = 0;
 
-Ti.API.info('Current Controller: ' + currentWindow);
+	}
 
-Ti.API.info('Selected Controller: ' + e.row.name);
+	$.flyoutTable.setData(rows);
 
-currentWindow = e.row.name;
+	/*
 
-// get the detail controller and window references
+	 * Flyout Menu click handling
 
-var controller = Alloy.createController(e.row.controller, {
+	 */
 
-title : e.row.titleValue,
+	$.flyoutTable.addEventListener('click', function(e) {
 
-name : e.row.name,
+		Alloy.Globals.isMenuVisible = false;
 
-isFlyout : true
+		Alloy.Globals.navGroup.animate(Alloy.Globals.animations.right);
 
-});
+		if (e.row.name == '_main_menu') {
 
-var newWindow = controller.getView();
+			alert('main menu clicked');
 
-Alloy.Globals.navGroup.openWindow(newWindow, {
+		} else if (e.row.name == '_options') {
 
-animated : true
+			alert('option menu clicked');
 
-});
+		} else if (e.row.name == currentWindow) {
 
-Alloy.Globals.navGroup.window = newWindow;
+			// DO NOTHING MENU WILL HIDE ITSELF.
 
-}
+		} else {
 
-});
+			Ti.API.info('Current Controller: ' + currentWindow);
 
+			Ti.API.info('Selected Controller: ' + e.row.name);
 
+			currentWindow = e.row.name;
 
+			// get the detail controller and window references
 
+			var controller = Alloy.createController(e.row.controller, {
 
-//start of the login test area.
+				title : e.row.titleValue,
 
+				name : e.row.name,
 
-Ti.App.Properties.setString("user_key", "1232456789");
+				isFlyout : true
 
-//remove the session key to force the login process
-Ti.App.Properties.removeProperty("user_key");
+			});
 
+			var newWindow = controller.getView();
 
-if(Ti.App.Properties.getString("user_key",null) != null){
+			Alloy.Globals.navGroup.openWindow(newWindow, {
 
-Ti.API.info ('We have a user key so go straight into the app');
+				animated : true
 
+			});
 
+			Alloy.Globals.navGroup.window = newWindow;
 
+		}
 
+	});
 
-/*
-
-* Main Parent Window open event
-
-*/
-
-$.winParent.addEventListener('open', function(e) {
-
-Ti.API.info('Parent or Menu Window is opened');
-
-// open the home window
-
-
-var homeController = Alloy.createController('Home', {
-
-title : 'Home',
-
-name : '_home',
-
-isFlyout : true
-
-}).getView();
-
-
-
-Alloy.Globals.navGroup = Titanium.UI.iOS.createNavigationWindow({
-
-left : 0
-
-});
-
-
-
-Alloy.Globals.navGroup.window = homeController;
-
-Alloy.Globals.navGroup.width = 320;
-
-Alloy.Globals.navGroup.open();
-
-});
-
-// set a variable for menu visibility
-
-Alloy.Globals.isMenuVisible = false;
-
-// set a variable for current window
-
-var currentWindow = '_home';
-
-$.winParent.open();
-
-
-} else {
-
-Ti.API.info ('We need to login the user');
-
-Ti.API.info('We need to login the user');
+	// start of login code that I am attempting to get to work....
 
 		currentUser.checkUserAuthentication().then(function(success) {
 			alert("My session is still good, so I don't have to login.");
 			alert(currentUser.id);
+			//show the home page
 		}, function(error) {
 			alert((error && error.message) || "uh oh");
 			alert("I need to login.");
+			//build a login page
 			currentUser.login({
 				login : "jayparker_1893",
 				password : "password"
 			}).then(function success(response) {
 				alert("The user logged in!");
+				//show the home page
 			}, function error(response) {
 				alert("error ");
 			});
 		});
+		
+		//build the home page
+		/*
 
-//We need to load the login page.   Once the user logs into the application.  set the user_key property and show the main page
+		 * Main Parent Window open event
 
+		 */
 
-};
+		$.winParent.addEventListener('open', function(e) {
 
+			Ti.API.info('Parent or Menu Window is opened');
 
+			// open the home window
 
+			var homeController = Alloy.createController('Home', {
 
+				title : 'Home',
 
+				name : '_home',
+
+				isFlyout : true
+
+			}).getView();
+
+			Alloy.Globals.navGroup = Titanium.UI.iOS.createNavigationWindow({
+
+				left : 0
+
+			});
+
+			Alloy.Globals.navGroup.window = homeController;
+
+			Alloy.Globals.navGroup.width = 320;
+
+			Alloy.Globals.navGroup.open();
+
+		});
+
+		// set a variable for menu visibility
+
+		Alloy.Globals.isMenuVisible = false;
+
+		// set a variable for current window
+
+		var currentWindow = '_home';
+
+		$.winParent.open();	
 }
 
